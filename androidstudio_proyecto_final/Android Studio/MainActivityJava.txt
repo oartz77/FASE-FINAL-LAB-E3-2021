@@ -1,0 +1,354 @@
+MainActivity.java
+
+
+
+package com.example.proyectopracticase3;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.CompoundButton;
+import android.widget.ToggleButton;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+
+public class MainActivity extends AppCompatActivity {
+
+    // Write a message to the database
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference refHome = database.getReference("home");
+    DatabaseReference refLuces,  refLuzParqueo, refLuzInterior, refLuzExterior, refLuzAC, refPorton, refGaraje, refVentilacion, refFuentes, refFuente, refVentilador, refSeguridad,refAlarma, refEntrada, refPuerta;
+    ToggleButton btnToggle;
+    ToggleButton btnToggle1;
+    ToggleButton btnToggle2;
+    ToggleButton btnToggle3;
+    ToggleButton btnToggle4;
+    ToggleButton btnToggle5;
+    ToggleButton btnToggle6;
+    ToggleButton btnToggle7;
+    ToggleButton btnToggle8;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        refLuces = refHome.child("luces");
+        refLuzParqueo = refLuces.child("luz_parqueo");
+        refLuzInterior = refLuces.child("luz_interior");
+        refLuzExterior = refLuces.child("luz_exterior");
+        refLuzAC = refLuces.child("luz_AC");
+        refPorton = refHome.child("porton");
+        refGaraje = refPorton.child("garaje");
+        refVentilacion = refHome.child("ventilacion");
+        refVentilador = refVentilacion.child("ventilador");
+        refSeguridad = refHome.child("seguridad");
+        refAlarma = refSeguridad.child("alarma");
+        refFuentes = refHome.child("fuentes");
+        refFuente = refFuentes.child("fuente");
+        refEntrada = refHome.child("Entrada");
+        refPuerta = refEntrada.child("Puerta");
+
+
+
+        btnToggle = (ToggleButton)  findViewById(R.id.toggleButton);
+        btnToggle.setTextOn("ENCENDER");
+        btnToggle.setTextOff("APAGAR");
+
+        btnToggle1 = (ToggleButton)  findViewById(R.id.toggleButton1);
+        btnToggle1.setTextOn("ENCENDER");
+        btnToggle1.setTextOff("APAGAR");
+
+        btnToggle2 = (ToggleButton)  findViewById(R.id.toggleButton2);
+        btnToggle2.setTextOn("ENCENDER");
+        btnToggle2.setTextOff("APAGAR");
+
+        btnToggle3 = (ToggleButton)  findViewById(R.id.toggleButton3);
+        btnToggle3.setTextOn("ENCENDER");
+        btnToggle3.setTextOff("APAGAR");
+
+        btnToggle4 = (ToggleButton)  findViewById(R.id.toggleButton4);
+        btnToggle4.setTextOn("ENCENDER");
+        btnToggle4.setTextOff("APAGAR");
+
+        btnToggle5 = (ToggleButton)  findViewById(R.id.toggleButton5);
+        btnToggle5.setTextOn("CERRAR");
+        btnToggle5.setTextOff("ABRIR");
+
+        btnToggle6 = (ToggleButton)  findViewById(R.id.toggleButton6);
+        btnToggle6.setTextOn("CERRAR");
+        btnToggle6.setTextOff("ABRIR");
+
+        btnToggle7 = (ToggleButton)  findViewById(R.id.toggleButton7);
+        btnToggle7.setTextOn("ENCENDER");
+        btnToggle7.setTextOff("APAGAR");
+
+        btnToggle8 = (ToggleButton)  findViewById(R.id.toggleButton8);
+        btnToggle8.setTextOn("ENCENDER");
+        btnToggle8.setTextOff("APAGAR");
+
+
+        controlLED1(refLuzParqueo, btnToggle);
+        controlLED2(refLuzInterior, btnToggle1);
+        controlLED3(refLuzExterior, btnToggle2);
+        controlLED4(refGaraje, btnToggle6);
+        controlLED5(refLuzAC, btnToggle8);
+        controlLED6(refFuente, btnToggle3);
+        controlLED7(refPuerta, btnToggle5);
+        controlLED8(refAlarma, btnToggle7);
+        controlLED9(refVentilador, btnToggle4);
+
+
+    }
+
+    private void controlLED1(final DatabaseReference refLed1, final ToggleButton toggle_btn ) {
+
+        toggle_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                refLed1.setValue(isChecked);
+            }
+        });
+
+        refLed1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean estado_led1  = (Boolean) dataSnapshot.getValue();
+                toggle_btn.setChecked(estado_led1);
+                if(estado_led1){
+                    toggle_btn.setTextOn("ENCENDER");
+                } else {
+                    toggle_btn.setTextOff("APAGAR");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+
+        });
+    }
+    private void controlLED2(final DatabaseReference refLed2, final ToggleButton toggle_btn ) {
+
+        toggle_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                refLed2.setValue(isChecked);
+            }
+        });
+
+        refLed2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean estado_led2  = (Boolean) dataSnapshot.getValue();
+                toggle_btn.setChecked(estado_led2);
+                if(estado_led2){
+                    toggle_btn.setTextOn("ENCENDER");
+                } else {
+                    toggle_btn.setTextOff("APAGAR");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+
+        });
+    }
+    private void controlLED3(final DatabaseReference refLed3, final ToggleButton toggle_btn ) {
+
+        toggle_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                refLed3.setValue(isChecked);
+            }
+        });
+
+        refLed3.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean estado_led3  = (Boolean) dataSnapshot.getValue();
+                toggle_btn.setChecked(estado_led3);
+                if(estado_led3){
+                    toggle_btn.setTextOn("ENCENDER");
+                } else {
+                    toggle_btn.setTextOff("APAGAR");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+
+        });
+    }
+
+    private void controlLED4(final DatabaseReference refLed4, final ToggleButton toggle_btn ) {
+
+        toggle_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                refLed4.setValue(isChecked);
+            }
+        });
+
+        refLed4.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean estado_led4  = (Boolean) dataSnapshot.getValue();
+                toggle_btn.setChecked(estado_led4);
+                if(estado_led4){
+                    toggle_btn.setTextOn("CERRAR");
+                } else {
+                    toggle_btn.setTextOff("ABRIR");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+
+        });
+    }
+
+    private void controlLED5(final DatabaseReference refLed5, final ToggleButton toggle_btn ) {
+
+        toggle_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                refLed5.setValue(isChecked);
+            }
+        });
+
+        refLed5.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean estado_led5  = (Boolean) dataSnapshot.getValue();
+                toggle_btn.setChecked(estado_led5);
+                if(estado_led5){
+                    toggle_btn.setTextOn("ENCENDER");
+                } else {
+                    toggle_btn.setTextOff("APAGAR");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+
+        });
+    }
+
+    private void controlLED6(final DatabaseReference refLed6, final ToggleButton toggle_btn ) {
+
+        toggle_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                refLed6.setValue(isChecked);
+            }
+        });
+
+        refLed6.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean estado_led6  = (Boolean) dataSnapshot.getValue();
+                toggle_btn.setChecked(estado_led6);
+                if(estado_led6){
+                    toggle_btn.setTextOn("ENCENDER");
+                } else {
+                    toggle_btn.setTextOff("APAGAR");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+
+        });
+    }
+
+    private void controlLED7(final DatabaseReference refLed7, final ToggleButton toggle_btn ) {
+
+        toggle_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                refLed7.setValue(isChecked);
+            }
+        });
+
+        refLed7.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean estado_led7  = (Boolean) dataSnapshot.getValue();
+                toggle_btn.setChecked(estado_led7);
+                if(estado_led7){
+                    toggle_btn.setTextOn("CERRAR");
+                } else {
+                    toggle_btn.setTextOff("ABRIR");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+
+        });
+    }
+
+    private void controlLED8(final DatabaseReference refLed8, final ToggleButton toggle_btn ) {
+
+        toggle_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                refLed8.setValue(isChecked);
+            }
+        });
+
+        refLed8.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean estado_led8  = (Boolean) dataSnapshot.getValue();
+                toggle_btn.setChecked(estado_led8);
+                if(estado_led8){
+                    toggle_btn.setTextOn("ENCENDER");
+                } else {
+                    toggle_btn.setTextOff("APAGAR");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+
+        });
+    }
+
+
+    private void controlLED9(final DatabaseReference refLed9, final ToggleButton toggle_btn ) {
+
+        toggle_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                refLed9.setValue(isChecked);
+            }
+        });
+
+        refLed9.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean estado_led9  = (Boolean) dataSnapshot.getValue();
+                toggle_btn.setChecked(estado_led9);
+                if(estado_led9){
+                    toggle_btn.setTextOn("ENCENDER");
+                } else {
+                    toggle_btn.setTextOff("APAGAR");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+
+        });
+    }
+
+
+
+}

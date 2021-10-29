@@ -1,0 +1,15 @@
+strings.xml
+
+<resources>
+    <string name="app_name">Home Control</string>
+    <string name="Luces">Iluminación</string>
+    <string name="Luz1">Luz Interior</string>
+    <string name="Luz2">Luz Parqueo</string>
+    <string name="Luz3">Luz Exterior</string>
+    <string name="Fuente">Fuente</string>
+    <string name="Ventilacion">Ventilación</string>
+    <string name="Porton">Porton</string>
+    <string name="Ventana">Puerta</string>
+    <string name="Seguridad">Seguridad</string>
+    <string name="FocoAC">Foco AC</string>
+</resources>
